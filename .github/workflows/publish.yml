@@ -8,7 +8,7 @@ on:
 permissions:
   actions: read  # To read the workflow path.
   id-token: write     # ✅ OIDC 인증에 필요
-  contents: read  # GitHub 리포지토리의 코드/워크플로우/릴리스 정보 읽기 (출처 기록용)
+  contents: write  # GitHub 리포지토리의 코드/워크플로우/릴리스 정보 읽기 (출처 기록용)
   attestations: write
 
 jobs:

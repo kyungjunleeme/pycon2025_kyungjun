@@ -1,6 +1,6 @@
 [project]
 name = "pycon2025-kyungjun"
-version = "4.0.0"
+version = "4.0.1"
 description = "Add your description here"
 readme = "README.md"
 authors = [
