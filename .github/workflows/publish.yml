@@ -7,6 +7,8 @@ on:
 
 permissions:
   id-token: write     # ✅ OIDC 인증에 필요
+  contents: read  # GitHub 리포지토리의 코드/워크플로우/릴리스 정보 읽기 (출처 기록용)
+  attestations: write
 
 jobs:
   oidc_debug_test:
@@ -34,8 +36,14 @@ jobs:
       - name: Build the package using uv
         run: uv build
 
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: 'dist/'
+
 #      - name: Publish to PyPI using uv
 #        run: uv publish
+
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
