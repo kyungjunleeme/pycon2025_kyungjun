@@ -53,7 +53,7 @@ jobs:
 
       - name: Debug Outputs
         run: |
-          echo "Hash output: ${{ steps.hash.outputs.hash }}"
+          echo "Hash output: ${{ steps.hash.outputs.hashes }}"
 
 
 #      - name: Generate artifact attestation
