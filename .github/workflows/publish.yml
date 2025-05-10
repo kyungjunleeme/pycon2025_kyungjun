@@ -51,6 +51,11 @@ jobs:
           HASHES=$(sha256sum * | base64 -w0)
           echo "hashes=$HASHES" >> "$GITHUB_OUTPUT"
 
+      - name: Debug Outputs
+        run: |
+          echo "Hash output: ${{ steps.hash.outputs.hash }}"
+
+
 #      - name: Generate artifact attestation
 #        uses: actions/attest-build-provenance@v2
 #        with:
@@ -59,29 +64,29 @@ jobs:
 #      - name: Publish to PyPI using uv
 #        run: uv publish
 
-  provenance:
-    needs: [build-with-uv]
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.1.0
-    with:
-      base64-subjects: "${{ needs.build.outputs.hashes }}"
-      upload-assets: true  # Optional: Upload to a new release
-
-  pypi-publish:
-    needs: [provenance]
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-      url: https://pypi.org/p/pycon2025-kyungjun  # PyPI project name
-    outputs:
-      hashes: ${{ steps.hash.outputs.hashes }}
-    steps:
-      - uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
-        with:
-          name: dist
-          path: ./dist
-
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          attestations: true  # 기본값이 true 이지만 설명하기 위해 추가
-          packages-dir: dist/  # 기본값이 dist 이지만 설명하기 위해 추가
+#  provenance:
+#    needs: [build-with-uv]
+#    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.1.0
+#    with:
+#      base64-subjects: "${{ needs.build.outputs.hashes }}"
+#      upload-assets: true  # Optional: Upload to a new release
+#
+#  pypi-publish:
+#    needs: [provenance]
+#    runs-on: ubuntu-latest
+#    environment:
+#      name: production
+#      url: https://pypi.org/p/pycon2025-kyungjun  # PyPI project name
+#    outputs:
+#      hashes: ${{ steps.hash.outputs.hashes }}
+#    steps:
+#      - uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+#        with:
+#          name: dist
+#          path: ./dist
+#
+#      - name: Publish package distributions to PyPI
+#        uses: pypa/gh-action-pypi-publish@release/v1
+#        with:
+#          attestations: true  # 기본값이 true 이지만 설명하기 위해 추가
+#          packages-dir: dist/  # 기본값이 dist 이지만 설명하기 위해 추가
