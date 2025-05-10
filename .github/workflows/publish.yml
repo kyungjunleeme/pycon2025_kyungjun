@@ -7,14 +7,22 @@ on:
 
 permissions:
   id-token: write     # ✅ OIDC 인증에 필요
-  contents: write     # ✅ (선택) Release 생성 등에 필요할 수 있음
 
 jobs:
+  oidc_debug_test:
+    runs-on: ubuntu-latest
+    name: A test of the oidc debugger
+    steps:
+      - name: Debug OIDC Claims
+        uses: github/actions-oidc-debugger@main
+        with:
+          audience: '${{ github.server_url }}/${{ github.repository_owner }}'
+
   build-and-publish:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: https://pypi.org/p/pycon2025-kyungjun  # Replace <package-name> with your PyPI project name
+      url: https://pypi.org/p/pycon2025-kyungjun  # PyPI project name
 
     steps:
       - name: Checkout source code
