@@ -1,0 +1,24 @@
+[project]
+name = "pycon2025-kyungjun"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "kyungjunleeme", email = "kyungjunlee.me@gmail.com" }
+]
+requires-python = ">=3.11.12"
+dependencies = []
+
+[project.scripts]
+pycon2025-kyungjun = "pycon2025_kyungjun:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+
+
