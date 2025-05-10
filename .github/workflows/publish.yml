@@ -34,6 +34,10 @@ jobs:
       - name: Build the package using uv
         run: uv build
 
-      - name: Publish to PyPI using uv
-        run: uv publish
-
+#      - name: Publish to PyPI using uv
+#        run: uv publish
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          attestations: true  # 기본값이 true 이지만 설명하기 위해 추가
+          packages-dir: dist/  # 기본값이 dist 이지만 설명하기 위해 추가
